@@ -5,27 +5,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity
+@Entity // (name = "XYZ") - Si no defino nombre en entidad toma el de la clase (Medico)
+@Table(name = "medico") // Nombre que toma la tabla en la BD - Si no se pone toma el de la clase 
 public class Medico {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	/**
+	 * JPQL (Java Persistence Query Language)
+	 * JPQL	->	FROM XYZ m WHERE m.idMedico = 1
+	 * SQL 	-> 	SELECT * FROM MEDICO m WHERE m.id_medico = 1
+	 */
+	
+	@Id // Primary Key
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idMedico;
-	
-	@Column(name = "nombre", nullable = false, length = 70)
+
+	@Column(name = "nombres", nullable = false, length = 70)
 	private String nombres;
-	
+
 	@Column(name = "apellidos", nullable = false, length = 70)
 	private String apellidos;
-	
-	@Column(name = "cmp", nullable = false, length = 15, unique = true)
-	private String cmp;
-	
+
+	@Column(name = "CMP", nullable = false, length = 12, unique = true)
+	private String CMP;
+
 	@Column(name = "foto_url", nullable = true)
 	private String fotoUrl;
 
-	
 	public Integer getIdMedico() {
 		return idMedico;
 	}
@@ -50,12 +57,12 @@ public class Medico {
 		this.apellidos = apellidos;
 	}
 
-	public String getCmp() {
-		return cmp;
+	public String getCMP() {
+		return CMP;
 	}
 
-	public void setCmp(String cmp) {
-		this.cmp = cmp;
+	public void setCMP(String cMP) {
+		CMP = cMP;
 	}
 
 	public String getFotoUrl() {
@@ -65,5 +72,5 @@ public class Medico {
 	public void setFotoUrl(String fotoUrl) {
 		this.fotoUrl = fotoUrl;
 	}
-
+	
 }

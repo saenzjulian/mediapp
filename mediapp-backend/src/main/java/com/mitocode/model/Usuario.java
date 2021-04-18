@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "usuario")
 public class Usuario {
 
-	@Id
+	@Id // La llave primaria no la pongo autoincremental por si paso un script para poblar la BD
 	private Integer idUsuario;
 
 	@Column(name = "nombre", nullable = false, unique = true)
@@ -29,6 +29,14 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -44,12 +52,7 @@ public class Usuario {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	
+	
+	
 }
