@@ -1,5 +1,7 @@
 package com.mitocode.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,8 +11,13 @@ import javax.persistence.ManyToOne;
  * porque la clase principal es ConsultaExamen que es la que tiene Getters an Setters
  */
 @Embeddable
-public class ConsultaExamenPK {
+public class ConsultaExamenPK implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Siendo [idConsulta] e [idExamen] llaves primarias es sus respectivas tablas
 	 * pero en la tabla ConsultaExamen que nace de la relación de las mismas
