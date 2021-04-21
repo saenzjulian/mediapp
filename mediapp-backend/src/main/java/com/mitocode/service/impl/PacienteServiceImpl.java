@@ -11,7 +11,7 @@ import com.mitocode.repo.IPacienteRepo;
 import com.mitocode.service.IPacienteService;
 
 @Service
-public class PacienteServiceImpl implements IPacienteService{
+public class PacienteServiceImpl extends CRUDImpl<Paciente, Integer> implements IPacienteService{
 	
 	// Como necesito una instancia (new) y el IoC la tiene la llamo con la anotación
 	@Autowired
