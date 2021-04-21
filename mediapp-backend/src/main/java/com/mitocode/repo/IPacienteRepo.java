@@ -1,6 +1,5 @@
 package com.mitocode.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.mitocode.model.Paciente;
 
 /*
@@ -8,6 +7,6 @@ import com.mitocode.model.Paciente;
  * porque tiene herencias de JpaRepository y esta ya tiene toda
  * la lógica interna para el acceso a BD.
  */
-public interface IPacienteRepo extends JpaRepository<Paciente, Integer>{
+public interface IPacienteRepo extends IGenericRepo<Paciente, Integer>{
 
 }
