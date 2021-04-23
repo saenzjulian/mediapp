@@ -29,16 +29,16 @@ public class Paciente {
 	
 	@NotNull
 	@NotEmpty
-	@Size(min = 8, max = 8, message = "DNI debe tener 8 caracteres")
-	@Column(name = "dni", nullable = false, length = 8, unique = true)
+	@Size(min = 8, max = 15, message = "DNI debe tener 8 caracteres")
+	@Column(name = "dni", nullable = false, length = 15, unique = true)
 	private String dni;
 	
 	@Size(min = 3, max = 150, message = "Dirección debe tener minimo 3 caracteres")
 	@Column(name = "direccion", nullable = true, length = 150)
 	private String direccion;
 	
-	@Size(min = 9, max = 9, message = "Telefono debe tener mínimo 9 caracteres")
-	@Column(name = "telefono", nullable = true, length = 9)
+	@Size(min = 9, max = 20, message = "Telefono debe tener mínimo 9 caracteres")
+	@Column(name = "telefono", nullable = true, length = 20)
 	private String telefono;
 	
 	@NotNull
