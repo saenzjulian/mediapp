@@ -18,12 +18,12 @@ public class Paciente {
 	private Integer idPaciente;
 	
 	@NotNull
-	@Size(min = 3, message = "Longitud del nombre no válido. Mínimo 3")
+	@Size(min = 3, message = "{nombres.size}")
 	@Column(name = "nombres", nullable = false, length = 70)
 	private String nombres;
 	
 	@NotNull
-	@Size(min = 3, message = "Longitud del apellido no válido. Mínimo 3")
+	@Size(min = 3, message = "{apellidos.size}")
 	@Column(name = "apellidos", nullable = false, length = 70)
 	private String apellidos;
 	
