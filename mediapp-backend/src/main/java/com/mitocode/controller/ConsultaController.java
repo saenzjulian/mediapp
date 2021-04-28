@@ -1,5 +1,8 @@
 package com.mitocode.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 
@@ -21,43 +24,40 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mitocode.exception.ModelNotFoundException;
-import com.mitocode.model.Paciente;
-import com.mitocode.service.IPacienteService;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import com.mitocode.model.Consulta;
+import com.mitocode.service.IConsultaService;
 
 @RestController
-@RequestMapping("/pacientes")
-public class PacienteController {
+@RequestMapping("/consultas")
+public class ConsultaController {
 	
 	@Autowired
-	private IPacienteService service;
+	private IConsultaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Paciente>> list() throws Exception{
-		List<Paciente> lista = service.listar();
-		return new ResponseEntity<List<Paciente>>(lista, HttpStatus.OK);
+	public ResponseEntity<List<Consulta>> list() throws Exception{
+		List<Consulta> lista = service.listar();
+		return new ResponseEntity<List<Consulta>>(lista, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Paciente> listarPorId(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id); 
+	public ResponseEntity<Consulta> listarPorId(@PathVariable("id") Integer id) throws Exception{
+		Consulta obj = service.listarPorId(id); 
 		if(obj == null) {
 			throw new ModelNotFoundException("ID no encontrado " + id);	
 		}
-		return new ResponseEntity<Paciente>(obj, HttpStatus.OK);
+		return new ResponseEntity<Consulta>(obj, HttpStatus.OK);
 	}
 	
 	@GetMapping("/hateoas/{id}")
-	public EntityModel<Paciente> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id);
+	public EntityModel<Consulta> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception{
+		Consulta obj = service.listarPorId(id);
 		
 		if(obj == null) {
 			throw new ModelNotFoundException("ID no encontrado " + id);
 		}
 		
-		EntityModel<Paciente> recurso = EntityModel.of(obj);
+		EntityModel<Consulta> recurso = EntityModel.of(obj);
 		
 		// localhost:8080/pacientes/4
 		/*
@@ -69,8 +69,8 @@ public class PacienteController {
 		WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).listarPorIdHateoas(id));
 		//WebMvcLinkBuilder link2 = linkTo(methodOn(this.getClass()).listarPorIdHateoas(id));
 		
-		recurso.add(link1.withRel("paciente-recurso1"));
-		//recurso.add(link2.withRel("paciente-recurso2"));
+		recurso.add(link1.withRel("consulta-recurso1"));
+		//recurso.add(link2.withRel("consulta-recurso2"));
 		
 		return recurso;
 	}
@@ -79,34 +79,34 @@ public class PacienteController {
 	 * @RequestBody -> para cambiar el tipo de información de JSON a Java y viceversa si es necesario
 	 
 	@PostMapping
-	public ResponseEntity<Paciente> registrar(@Valid @RequestBody Paciente p) throws Exception{
-		Paciente pac = service.registrar(p);
-		return new ResponseEntity<Paciente>(pac, HttpStatus.CREATED);
+	public ResponseEntity<Consulta> registrar(@Valid @RequestBody Consulta p) throws Exception{
+		Consulta pac = service.registrar(p);
+		return new ResponseEntity<Consulta>(pac, HttpStatus.CREATED);
 	}
 	*/
 	
 	@PostMapping
-	public ResponseEntity<Paciente> registrar(@Valid @RequestBody Paciente p) throws Exception{
-		Paciente obj = service.registrar(p);
+	public ResponseEntity<Consulta> registrar(@Valid @RequestBody Consulta p) throws Exception{
+		Consulta obj = service.registrar(p);
 		/**
 		 * Con el fin de obtener más información del POST REQUEST en la ruta -> localhost:8080/pacientes/id
 		 * ServletUriComponentsBuilder.fromCurrentRequest() -> 	"localhost:8080/pacientes"
 		 * .path("/{id}")	->	"/{id}" : parte dinámica
 		 * .buildAndExpand(pac.getIdPaciente()).toUri(); : Cómo poblar la parte dinámica		 * 
 		 */		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdPaciente()).toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdConsulta()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
 	@PutMapping
-	public ResponseEntity<Paciente> modificar(@Valid @RequestBody Paciente p) throws Exception{
-		Paciente obj = service.modificar(p);
-		return new ResponseEntity<Paciente>(obj, HttpStatus.OK);
+	public ResponseEntity<Consulta> modificar(@Valid @RequestBody Consulta p) throws Exception{
+		Consulta obj = service.modificar(p);
+		return new ResponseEntity<Consulta>(obj, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminar(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id); 
+		Consulta obj = service.listarPorId(id); 
 		if(obj == null) {
 			throw new ModelNotFoundException("ID no encontrado " + id);	
 		}

@@ -21,43 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mitocode.exception.ModelNotFoundException;
-import com.mitocode.model.Paciente;
-import com.mitocode.service.IPacienteService;
+import com.mitocode.model.Examen;
+import com.mitocode.service.IExamenService;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/pacientes")
-public class PacienteController {
+@RequestMapping("/Examenes")
+public class ExamenController {
 	
 	@Autowired
-	private IPacienteService service;
+	private IExamenService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Paciente>> list() throws Exception{
-		List<Paciente> lista = service.listar();
-		return new ResponseEntity<List<Paciente>>(lista, HttpStatus.OK);
+	public ResponseEntity<List<Examen>> list() throws Exception{
+		List<Examen> lista = service.listar();
+		return new ResponseEntity<List<Examen>>(lista, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Paciente> listarPorId(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id); 
+	public ResponseEntity<Examen> listarPorId(@PathVariable("id") Integer id) throws Exception{
+		Examen obj = service.listarPorId(id); 
 		if(obj == null) {
 			throw new ModelNotFoundException("ID no encontrado " + id);	
 		}
-		return new ResponseEntity<Paciente>(obj, HttpStatus.OK);
+		return new ResponseEntity<Examen>(obj, HttpStatus.OK);
 	}
 	
 	@GetMapping("/hateoas/{id}")
-	public EntityModel<Paciente> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id);
+	public EntityModel<Examen> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception{
+		Examen obj = service.listarPorId(id);
 		
 		if(obj == null) {
 			throw new ModelNotFoundException("ID no encontrado " + id);
 		}
 		
-		EntityModel<Paciente> recurso = EntityModel.of(obj);
+		EntityModel<Examen> recurso = EntityModel.of(obj);
 		
 		// localhost:8080/pacientes/4
 		/*
@@ -69,8 +69,8 @@ public class PacienteController {
 		WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).listarPorIdHateoas(id));
 		//WebMvcLinkBuilder link2 = linkTo(methodOn(this.getClass()).listarPorIdHateoas(id));
 		
-		recurso.add(link1.withRel("paciente-recurso1"));
-		//recurso.add(link2.withRel("paciente-recurso2"));
+		recurso.add(link1.withRel("examen-recurso1"));
+		//recurso.add(link2.withRel("examen-recurso2"));
 		
 		return recurso;
 	}
@@ -79,34 +79,34 @@ public class PacienteController {
 	 * @RequestBody -> para cambiar el tipo de información de JSON a Java y viceversa si es necesario
 	 
 	@PostMapping
-	public ResponseEntity<Paciente> registrar(@Valid @RequestBody Paciente p) throws Exception{
-		Paciente pac = service.registrar(p);
-		return new ResponseEntity<Paciente>(pac, HttpStatus.CREATED);
+	public ResponseEntity<Examen> registrar(@Valid @RequestBody Examen p) throws Exception{
+		Examen pac = service.registrar(p);
+		return new ResponseEntity<Examen>(pac, HttpStatus.CREATED);
 	}
 	*/
 	
 	@PostMapping
-	public ResponseEntity<Paciente> registrar(@Valid @RequestBody Paciente p) throws Exception{
-		Paciente obj = service.registrar(p);
+	public ResponseEntity<Examen> registrar(@Valid @RequestBody Examen p) throws Exception{
+		Examen obj = service.registrar(p);
 		/**
 		 * Con el fin de obtener más información del POST REQUEST en la ruta -> localhost:8080/pacientes/id
 		 * ServletUriComponentsBuilder.fromCurrentRequest() -> 	"localhost:8080/pacientes"
 		 * .path("/{id}")	->	"/{id}" : parte dinámica
 		 * .buildAndExpand(pac.getIdPaciente()).toUri(); : Cómo poblar la parte dinámica		 * 
 		 */		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdPaciente()).toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdExamen()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
 	@PutMapping
-	public ResponseEntity<Paciente> modificar(@Valid @RequestBody Paciente p) throws Exception{
-		Paciente obj = service.modificar(p);
-		return new ResponseEntity<Paciente>(obj, HttpStatus.OK);
+	public ResponseEntity<Examen> modificar(@Valid @RequestBody Examen p) throws Exception{
+		Examen obj = service.modificar(p);
+		return new ResponseEntity<Examen>(obj, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminar(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id); 
+		Examen obj = service.listarPorId(id); 
 		if(obj == null) {
 			throw new ModelNotFoundException("ID no encontrado " + id);	
 		}
