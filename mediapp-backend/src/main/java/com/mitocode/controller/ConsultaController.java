@@ -87,7 +87,8 @@ public class ConsultaController {
 	
 	@PostMapping
 	public ResponseEntity<Consulta> registrar(@Valid @RequestBody Consulta p) throws Exception{
-		Consulta obj = service.registrar(p);
+		//Consulta obj = service.registrar(p);
+		Consulta obj = service.registroTransaccional(p);
 		/**
 		 * Con el fin de obtener más información del POST REQUEST en la ruta -> localhost:8080/pacientes/id
 		 * ServletUriComponentsBuilder.fromCurrentRequest() -> 	"localhost:8080/pacientes"

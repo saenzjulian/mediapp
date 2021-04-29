@@ -20,4 +20,12 @@ public class ConsultaServiceImpl extends CRUDImpl<Consulta, Integer> implements 
 		return repo;
 	}
 
+	@Override
+	public Consulta registroTransaccional(Consulta consulta) {
+		// Insertar la consulta para ontener llave primaria
+		// Insertar el detalle consulta usando la llave primaria anterior
+		consulta.getDetalleConsulta().forEach(detalle -> detalle.setConsulta(consulta));
+		return repo.save(consulta); 
+	}
+
 }
