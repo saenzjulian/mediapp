@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mitocode.dto.ConsultaListaExamenDTO;
 import com.mitocode.exception.ModelNotFoundException;
 import com.mitocode.model.Consulta;
 import com.mitocode.service.IConsultaService;
@@ -86,7 +87,7 @@ public class ConsultaController {
 	*/
 	
 	@PostMapping
-	public ResponseEntity<Consulta> registrar(@Valid @RequestBody Consulta p) throws Exception{
+	public ResponseEntity<Consulta> registrar(@Valid @RequestBody ConsultaListaExamenDTO p) throws Exception{
 		//Consulta obj = service.registrar(p);
 		Consulta obj = service.registroTransaccional(p);
 		/**
