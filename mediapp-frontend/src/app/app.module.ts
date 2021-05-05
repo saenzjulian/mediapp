@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PacienteComponent } from './_pages/paciente/paciente.component';
+import { MaterialModule } from './material/material.module';
+import { PacienteComponent } from './_pages/paciente/paciente.component';  
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PacienteComponent } from './_pages/paciente/paciente.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

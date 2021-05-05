@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Paciente } from 'src/app/_models/paciente';
 import { PacienteService } from 'src/app/_services/paciente.service';
 
@@ -9,7 +10,8 @@ import { PacienteService } from 'src/app/_services/paciente.service';
 })
 export class PacienteComponent implements OnInit {
 
-  pacientes: Paciente[];
+  dataSource: MatTableDataSource<Paciente>
+  displayedColumns: string [] = ['idPaciente', 'nombres', 'apellidos', 'acciones']
 
   // Dependency injection
   constructor(private pacienteService: PacienteService) { }
@@ -22,7 +24,7 @@ export class PacienteComponent implements OnInit {
   ngOnInit(): void {
     // .subscribe hace parte de la programación reactiva porque en codigo es asincrono
     this.pacienteService.listar().subscribe(data => {
-      this.pacientes = data;
+      this.dataSource = new MatTableDataSource(data);
     });
   }
 
