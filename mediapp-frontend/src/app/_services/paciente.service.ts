@@ -8,10 +8,16 @@ import { Paciente } from '../_models/paciente';
 })
 export class PacienteService {
 
+  private url : string = `${environment.HOST}/pacientes`
+
   constructor(private http: HttpClient) { }
 
   listar(){
-    return this.http.get<Paciente[]>(`${environment.HOST}/pacientes`);
+    return this.http.get<Paciente[]>(this.url);
+  }
+
+  listarById(id: number){
+    return this.http.get<Paciente>(`${this.url}/${id}`);
   }
 
 

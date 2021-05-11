@@ -8,7 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { PacienteComponent } from './_pages/paciente/paciente.component';
-import { MedicoComponent } from './_pages/medico/medico.component';  
+import { MedicoComponent } from './_pages/medico/medico.component';
+import { PacienteEdicionComponent } from './_pages/paciente/paciente-edicion/paciente-edicion.component';  
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,14 +18,16 @@ import { MedicoComponent } from './_pages/medico/medico.component';
   declarations: [
     AppComponent,
     PacienteComponent,
-    MedicoComponent
+    MedicoComponent,
+    PacienteEdicionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,5 @@
+<router-outlet></router-outlet>  
+
 <div class="example-header">
     <mat-form-field>
         <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar Paciente">
@@ -24,7 +26,7 @@
     <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element">
-            <button mat-button color="primary">
+            <button mat-button color="primary" [routerLink]="['edicion', element.idPaciente]">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-button color="primary">
@@ -40,6 +42,6 @@
 
 <mat-paginator [pageSize]="10" [pageSizeOptions] = "[5, 10, 25, 100]"></mat-paginator>
 
-<button mat-fab color="accent" style="float: right" >
+<button mat-fab color="accent" style="float: right" routerLink="/paciente/nuevo">
     <mat-icon>add</mat-icon>
 </button>
