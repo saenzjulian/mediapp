@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Paciente } from 'src/app/_models/paciente';
 import { PacienteService } from 'src/app/_services/paciente.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class PacienteEdicionComponent implements OnInit {
 
   constructor(
     private root: ActivatedRoute,
+    private router: Router,
     private pacienteService: PacienteService
   ) { }
 
@@ -60,11 +62,34 @@ export class PacienteEdicionComponent implements OnInit {
   }
 
   operar() {
+    let paciente = new Paciente();
+    paciente.idPaciente = this.form.value['id'];
+    paciente.nombres = this.form.value['nombres'];
+    paciente.apellidos = this.form.value['apellidos'];
+    paciente.dni = this.form.value['dni'];
+    paciente.telefono = this.form.value['telefono'];
+    paciente.direccion = this.form.value['direccion'];
+    paciente.email = this.form.value['email'];
+
     if(this.edicion){
       // Update
+      this.pacienteService.modificar(paciente).subscribe(() => {
+        this.pacienteService.listar().subscribe(data => {
+          this.pacienteService.pacienteCambio.next(data)
+          this.pacienteService.mensajeCambio.next("Paciente Actualizado")
+        })
+      });
+      
     }else{
       // Create
+      this.pacienteService.registrar(paciente).subscribe(() => {
+        this.pacienteService.listar().subscribe(data => {
+          this.pacienteService.pacienteCambio.next(data)
+          this.pacienteService.mensajeCambio.next("Paciente Creado")
+        })
+      });
     }
+    this.router.navigate(['paciente'])
   }
 
 }

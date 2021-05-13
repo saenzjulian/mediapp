@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Paciente } from 'src/app/_models/paciente';
@@ -17,7 +18,10 @@ export class PacienteComponent implements OnInit {
   displayedColumns: string [] = ['idPaciente', 'nombres', 'apellidos', 'acciones']
 
   // Dependency injection
-  constructor(private pacienteService: PacienteService) { }
+  constructor(
+    private pacienteService: PacienteService,
+    private snackBar: MatSnackBar
+    ) { }
 
   /**
    * ngOnInit se ejecuta inmediatamente después del constructor
@@ -27,15 +31,47 @@ export class PacienteComponent implements OnInit {
   ngOnInit(): void {
     // .subscribe hace parte de la programación reactiva porque en codigo es asincrono
     this.pacienteService.listar().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.crearTabla(data);
     });
+
+    /**
+     * Esta variable reactiva [pcienteCambio] UNICA y EXCLUSIVAMENTE
+     * va a reaccionar cuando en algun lado del proyecto le hagan un .next
+     */
+    this.pacienteService.pacienteCambio.subscribe(data => {
+      this.crearTabla(data);
+    })
+
+    /**
+     * Esta es la implementación de otra variable reactiva
+     */
+    this.pacienteService.mensajeCambio.subscribe(data =>{
+      this.snackBar.open(data, 'AVISO', {duration: 4000});
+    });
+
   }
 
   filtrar(valor: string){
     this.dataSource.filter = valor.trim().toLowerCase();
+  }
 
+  crearTabla(data: Paciente[]){
+    this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+  }
+
+  eliminar(id: number){
+    this.pacienteService.eliminar(id).subscribe(() => {
+      this.pacienteService.listar().subscribe(data => {
+        this.crearTabla(data);
+        /** 
+         * En este punto tambien puedo usar la variable reactiva pacienteService.pacienteCambio
+         * porque no interesa en que componente esté, si doy un .next ella va a reaccionar  
+         */
+         this.pacienteService.mensajeCambio.next("Paciente Eliminado")
+      });   
+    });
   }
 
 }

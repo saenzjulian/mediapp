@@ -11,6 +11,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -31,7 +32,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSortModule, 
     MatInputModule, 
     MatFormFieldModule, 
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }
