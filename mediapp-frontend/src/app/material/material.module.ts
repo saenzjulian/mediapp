@@ -10,10 +10,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorImpl } from './mat-paginator';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter } from './custom-adapter';
+import { MatExpansionModule } from '@angular/material/expansion'; 
+import { MatListModule } from '@angular/material/list';  
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -33,7 +40,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule, 
     MatFormFieldModule, 
     MatPaginatorModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule, 
+    MatExpansionModule,
+    MatListModule,
+    MatAutocompleteModule,
+    MatFormFieldModule
+  ],
+  providers: [
+    {provide: MatPaginatorIntl, useClass: MatPaginatorImpl},
+    {provide: MAT_DATE_LOCALE, useValue: 'es-Es'},
+    {provide: DateAdapter, useClass: CustomDateAdapter}
   ]
 })
 export class MaterialModule { }

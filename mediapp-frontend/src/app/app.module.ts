@@ -10,7 +10,14 @@ import { MaterialModule } from './material/material.module';
 import { PacienteComponent } from './_pages/paciente/paciente.component';
 import { MedicoComponent } from './_pages/medico/medico.component';
 import { PacienteEdicionComponent } from './_pages/paciente/paciente-edicion/paciente-edicion.component';  
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MedicoDialogoComponent } from './_pages/medico/medico-dialogo/medico-dialogo.component';
+import { ExamenComponent } from './_pages/examen/examen.component';
+import { ExamenEdicionComponent } from './_pages/examen/examen-edicion/examen-edicion.component';
+import { EspecialidadComponent } from './_pages/especialidad/especialidad.component';
+import { EspecialidadEdicionComponent } from './_pages/especialidad/especialidad-edicion/especialidad-edicion.component';
+import { ConsultaComponent } from './_pages/consulta/consulta.component';
+import { ConsultaEspecialComponent } from './_pages/consulta-especial/consulta-especial.component';
 
 
 
@@ -19,7 +26,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     PacienteComponent,
     MedicoComponent,
-    PacienteEdicionComponent
+    PacienteEdicionComponent,
+    MedicoDialogoComponent,
+    ExamenComponent,
+    ExamenEdicionComponent,
+    EspecialidadComponent,
+    EspecialidadEdicionComponent,
+    ConsultaComponent,
+    ConsultaEspecialComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
