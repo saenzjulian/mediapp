@@ -9,6 +9,7 @@ import { ExamenComponent } from './_pages/examen/examen.component';
 import { MedicoComponent } from './_pages/medico/medico.component';
 import { PacienteEdicionComponent } from './_pages/paciente/paciente-edicion/paciente-edicion.component';
 import { PacienteComponent } from './_pages/paciente/paciente.component';
+import { WizardComponent } from './_pages/wizard/wizard.component';
 
 const routes: Routes = [
   { path: 'medico', component: MedicoComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
     ]
   },
   { path: 'consulta', component: ConsultaComponent },
-  { path: 'consulta-especial', component: ConsultaEspecialComponent }
+  { path: 'consulta-especial', component: ConsultaEspecialComponent },
+  { path: 'consulta-wizard', component: WizardComponent }
 
 ];
 

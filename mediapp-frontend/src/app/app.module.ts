@@ -18,6 +18,8 @@ import { EspecialidadComponent } from './_pages/especialidad/especialidad.compon
 import { EspecialidadEdicionComponent } from './_pages/especialidad/especialidad-edicion/especialidad-edicion.component';
 import { ConsultaComponent } from './_pages/consulta/consulta.component';
 import { ConsultaEspecialComponent } from './_pages/consulta-especial/consulta-especial.component';
+import { WizardComponent } from './_pages/wizard/wizard.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -33,7 +35,8 @@ import { ConsultaEspecialComponent } from './_pages/consulta-especial/consulta-e
     EspecialidadComponent,
     EspecialidadEdicionComponent,
     ConsultaComponent,
-    ConsultaEspecialComponent
+    ConsultaEspecialComponent,
+    WizardComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { ConsultaEspecialComponent } from './_pages/consulta-especial/consulta-e
     MaterialModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
