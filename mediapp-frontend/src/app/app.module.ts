@@ -20,6 +20,8 @@ import { ConsultaComponent } from './_pages/consulta/consulta.component';
 import { ConsultaEspecialComponent } from './_pages/consulta-especial/consulta-especial.component';
 import { WizardComponent } from './_pages/wizard/wizard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BuscarComponent } from './_pages/buscar/buscar.component';
+import { BuscarDialogoComponent } from './_pages/buscar/buscar-dialogo/buscar-dialogo.component';
 
 
 
@@ -36,7 +38,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     EspecialidadEdicionComponent,
     ConsultaComponent,
     ConsultaEspecialComponent,
-    WizardComponent
+    WizardComponent,
+    BuscarComponent,
+    BuscarDialogoComponent
   ],
   imports: [
     BrowserModule,

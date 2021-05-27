@@ -4,6 +4,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mitocode.dto.ConsultaListaExamenDTO;
+import com.mitocode.dto.FiltroConsultaDTO;
 import com.mitocode.exception.ModelNotFoundException;
 import com.mitocode.model.Consulta;
 import com.mitocode.service.IConsultaService;
@@ -115,5 +119,21 @@ public class ConsultaController {
 		service.eliminar(id); 
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
+	
+	@GetMapping("/buscar?fecha=")
+	public ResponseEntity<List<Consulta>> listarPorId(@RequestParam(value = "fecha") String fecha){
+		List<Consulta> consultas = new ArrayList<>();
+		consultas = service.buscarFecha(LocalDateTime.parse(fecha)); 
+		
+		return new ResponseEntity<List<Consulta>>(consultas, HttpStatus.OK);
+	}	
+	
+	@GetMapping("/buscar/otros")
+	public ResponseEntity<List<Consulta>> listarPorId(@RequestBody FiltroConsultaDTO filtro){
+		List<Consulta> consultas = new ArrayList<>();
+		consultas = service.buscar(filtro); 
+		
+		return new ResponseEntity<List<Consulta>>(consultas, HttpStatus.OK);
+	}	
 
 }

@@ -24,6 +24,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
@@ -55,7 +56,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatFormFieldModule,
     MatStepperModule,
     MatSlideToggleModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: MatPaginatorImpl},

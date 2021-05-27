@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BuscarComponent } from './_pages/buscar/buscar.component';
 import { ConsultaEspecialComponent } from './_pages/consulta-especial/consulta-especial.component';
 import { ConsultaComponent } from './_pages/consulta/consulta.component';
 import { EspecialidadEdicionComponent } from './_pages/especialidad/especialidad-edicion/especialidad-edicion.component';
@@ -33,7 +34,9 @@ const routes: Routes = [
   },
   { path: 'consulta', component: ConsultaComponent },
   { path: 'consulta-especial', component: ConsultaEspecialComponent },
-  { path: 'consulta-wizard', component: WizardComponent }
+  { path: 'consulta-wizard', component: WizardComponent },
+  { path: 'buscar', component: BuscarComponent }
+
 
 ];
 
