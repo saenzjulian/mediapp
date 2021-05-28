@@ -79,7 +79,7 @@ export class BuscarComponent implements OnInit {
     this.dialog.open(BuscarDialogoComponent, {
       data: consulta
     });
-  }
-
+  }  
+  
 
 }

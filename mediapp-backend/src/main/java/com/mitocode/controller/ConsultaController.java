@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mitocode.dto.ConsultaListaExamenDTO;
+import com.mitocode.dto.ConsultaResumenDTO;
 import com.mitocode.dto.FiltroConsultaDTO;
 import com.mitocode.exception.ModelNotFoundException;
 import com.mitocode.model.Consulta;
@@ -120,20 +121,29 @@ public class ConsultaController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("/buscar?fecha=")
-	public ResponseEntity<List<Consulta>> listarPorId(@RequestParam(value = "fecha") String fecha){
-		List<Consulta> consultas = new ArrayList<>();
-		consultas = service.buscarFecha(LocalDateTime.parse(fecha)); 
+	@GetMapping("/buscar")	
+	public ResponseEntity<List<Consulta>> buscarFecha(@RequestParam(value = "fecha")  String fecha) {		
+		List<Consulta> consultas = new ArrayList<>();	
+		
+		consultas = service.buscarFecha(LocalDateTime.parse(fecha));						
 		
 		return new ResponseEntity<List<Consulta>>(consultas, HttpStatus.OK);
-	}	
+	}
 	
-	@GetMapping("/buscar/otros")
-	public ResponseEntity<List<Consulta>> listarPorId(@RequestBody FiltroConsultaDTO filtro){
+	@PostMapping("/buscar/otros")
+	public ResponseEntity<List<Consulta>> buscarOtro(@RequestBody FiltroConsultaDTO filtro) {		
 		List<Consulta> consultas = new ArrayList<>();
-		consultas = service.buscar(filtro); 
+		
+		consultas = service.buscar(filtro);			
 		
 		return new ResponseEntity<List<Consulta>>(consultas, HttpStatus.OK);
-	}	
+	}
+	
+	@GetMapping(value = "/listarResumen")
+	public ResponseEntity<List<ConsultaResumenDTO>> listarResumen() {
+		List<ConsultaResumenDTO> consultas = new ArrayList<>();
+		consultas = service.listarResumen();
+		return new ResponseEntity<List<ConsultaResumenDTO>>(consultas, HttpStatus.OK);
+	}
 
 }

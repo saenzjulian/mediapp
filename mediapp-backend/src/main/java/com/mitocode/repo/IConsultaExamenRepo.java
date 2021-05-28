@@ -1,6 +1,6 @@
 package com.mitocode.repo;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +18,9 @@ public interface IConsultaExamenRepo extends IGenericRepo<ConsultaExamen, Intege
 	//@Transactional - lo comento porque lo voy a usar en un scoope mayor y abarque más
 	@Query(value="INSERT INTO consulta_examen(id_consulta, id_examen) VALUES(:idConsulta, :idExamen)", nativeQuery=true)
 	Integer registrar(@Param("idConsulta") Integer idConsulta, @Param("idExamen") Integer idExamen);
-
+	
+	@Query("FROM ConsultaExamen ce WHERE ce.consulta.idConsulta = :idConsulta")
+	List<ConsultaExamen> listarExamenesPorConsulta(@Param("idConsulta") Integer idConsulta);
+	
 	
 }

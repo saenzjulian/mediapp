@@ -1,6 +1,7 @@
 package com.mitocode.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.dto.ConsultaListaExamenDTO;
+import com.mitocode.dto.ConsultaResumenDTO;
 import com.mitocode.dto.FiltroConsultaDTO;
 import com.mitocode.model.Consulta;
 import com.mitocode.repo.IConsultaExamenRepo;
@@ -57,6 +59,23 @@ public class ConsultaServiceImpl extends CRUDImpl<Consulta, Integer> implements 
 	@Override
 	public List<Consulta> buscarFecha(LocalDateTime fecha) { 
 		return repo.buscarFecha(fecha, fecha.plusDays(1));
+	}
+
+	@Override
+	public List<ConsultaResumenDTO> listarResumen() {
+		//List<Object[]>
+		//cantidad	fecha
+		//[1	,		"15/05/2021"]
+		//[2	,		"22/05/2021"]
+		//[5	,		"24/04/2021"]
+		List<ConsultaResumenDTO> consultas = new ArrayList<>();
+		repo.listarResumen().forEach(x -> {
+			ConsultaResumenDTO cr = new ConsultaResumenDTO();
+			cr.setCantidad(Integer.parseInt(String.valueOf(x[0])));
+			cr.setFecha(String.valueOf(x[1]));
+			consultas.add(cr);
+		});
+		return consultas;
 	}
 
 }
