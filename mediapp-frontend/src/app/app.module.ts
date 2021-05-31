@@ -23,6 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BuscarComponent } from './_pages/buscar/buscar.component';
 import { BuscarDialogoComponent } from './_pages/buscar/buscar-dialogo/buscar-dialogo.component';
 import { ReporteComponent } from './_pages/reporte/reporte.component'; 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
@@ -52,7 +53,8 @@ import { ReporteComponent } from './_pages/reporte/reporte.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
