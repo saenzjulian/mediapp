@@ -29,12 +29,12 @@ public interface IConsultaRepo extends IGenericRepo<Consulta, Integer>{
 			+ "WHERE c.fecha BETWEEN :fechaConsulta AND :fechaSgte")
 	List<Consulta> buscarFecha(@Param("fechaConsulta") LocalDateTime fechaConsulta, @Param("fechaSgte") LocalDateTime fechaSgte);
 	
-	@Query(value = "select * from fn_listarResumen()", nativeQuery = true)
+	@Query(value = "call mediapp.SP_Cantidad_Consultas_Por_Dia()", nativeQuery = true)
 	List<Object[]> listarResumen();
 	
-	//cantidad	fecha
-	//[1	,		"15/05/2021"]
-	//[2	,		"22/05/2021"]
-	//[5	,		"24/04/2021"]
-
+	//cantidad	,		fecha
+	//[1		,		"15/05/2021"]
+	//[2		,		"22/05/2021"]
+	//[5		,		"24/04/2021"]
+	
 }

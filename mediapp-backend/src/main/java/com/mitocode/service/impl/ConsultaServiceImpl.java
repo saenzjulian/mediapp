@@ -1,12 +1,16 @@
 package com.mitocode.service.impl;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.dto.ConsultaListaExamenDTO;
@@ -17,6 +21,11 @@ import com.mitocode.repo.IConsultaExamenRepo;
 import com.mitocode.repo.IConsultaRepo;
 import com.mitocode.repo.IGenericRepo;
 import com.mitocode.service.IConsultaService;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class ConsultaServiceImpl extends CRUDImpl<Consulta, Integer> implements IConsultaService{
@@ -76,6 +85,24 @@ public class ConsultaServiceImpl extends CRUDImpl<Consulta, Integer> implements 
 			consultas.add(cr);
 		});
 		return consultas;
+	}
+
+	@Override
+	public byte[] generarReporte() {
+		byte[] data = null;
+
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("txt_titulo", "Prueba de titulo");
+
+		try {
+			File file = new ClassPathResource("/reports/consultas.jasper").getFile();
+			JasperPrint print = JasperFillManager.fillReport(file.getPath(), parametros, new JRBeanCollectionDataSource(this.listarResumen()));
+			data = JasperExportManager.exportReportToPdf(print);
+			// mitocode jasperreports | excel, pdf, ppt, word, csv
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 
 }
