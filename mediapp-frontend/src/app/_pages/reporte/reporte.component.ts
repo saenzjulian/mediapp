@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultaService } from 'src/app/_services/consulta.service';
 import { Chart } from 'chart.js';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reporte',
@@ -19,12 +20,33 @@ export class ReporteComponent implements OnInit {
   imagenData: any; 
 
   constructor(
-    private consultaService: ConsultaService
+    private consultaService: ConsultaService,
+    private sanitization: DomSanitizer
   ) { }
 
   ngOnInit(): void {
+    this.consultaService.leerArchivo().subscribe(data => {
+      this.convertir(data);
+    });
+
     this.dibujar();
   }
+
+  convertir(data: any){
+    let reader = new FileReader();
+    reader.readAsDataURL(data);
+    reader.onloadend = () => {
+      let base64 = reader.result;                
+      //console.log(base64);
+    this.sanar(base64);
+    }
+  }
+
+  sanar(base64: any){
+    this.imagenData = this.sanitization.bypassSecurityTrustResourceUrl(base64);
+    this.imagenEstado = true;
+  }
+
 
   cambiar(tipo: string) {
     this.tipo = tipo;
