@@ -31,5 +31,25 @@ export class PacienteService  extends GenericService<Paciente>{
       http,
       `${environment.HOST}/pacientes`);
   } 
+
+  listarPageable(p: number, s:number){
+    return this.http.get<any>(`${this.url}/pageable?page=${p}&size=${s}`);
+  }
+
+  getPacienteCambio() {
+    return this.pacienteCambio.asObservable();
+  }
+
+  setPacientecambio(lista: Paciente[]) {
+    this.pacienteCambio.next(lista);
+  }
+
+  setMensajeCambio(mensaje: string){
+    this.mensajeCambio.next(mensaje);
+  }
+
+  getMensajeCambio(){
+    return this.mensajeCambio.asObservable();
+  } 
   
 }

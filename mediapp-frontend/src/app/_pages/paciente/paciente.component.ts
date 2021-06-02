@@ -13,9 +13,10 @@ import { PacienteService } from 'src/app/_services/paciente.service';
 })
 export class PacienteComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
-  dataSource: MatTableDataSource<Paciente>
-  displayedColumns: string [] = ['idPaciente', 'nombres', 'apellidos', 'acciones']
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: MatTableDataSource<Paciente>;
+  displayedColumns: string[] = ['idPaciente', 'nombres', 'apellidos', 'acciones'];
+  cantidad: number = 0;
 
   // Dependency injection
   constructor(
@@ -29,9 +30,17 @@ export class PacienteComponent implements OnInit {
    * proque se corre el riesgo de que me de un null, por eso no se hace en ngOnInit
    */
   ngOnInit(): void {
-    // .subscribe hace parte de la programación reactiva porque en codigo es asincrono
+    // .subscribe hace parte de la programación reactiva porque en codigo es asincrono  
+    /*
     this.pacienteService.listar().subscribe(data => {
       this.crearTabla(data);
+    });
+    */
+
+    this.pacienteService.listarPageable(0, 10).subscribe(data => {
+      this.cantidad = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
+      this.dataSource.sort = this.sort;
     });
 
     /**
@@ -71,6 +80,14 @@ export class PacienteComponent implements OnInit {
          */
          this.pacienteService.mensajeCambio.next("Paciente Eliminado")
       });   
+    });
+  }
+
+  mostrarMas(e: any){
+    this.pacienteService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
+      this.cantidad = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
+      this.dataSource.sort = this.sort;
     });
   }
 
