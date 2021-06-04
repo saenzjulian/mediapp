@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -24,6 +24,7 @@ import { BuscarComponent } from './_pages/buscar/buscar.component';
 import { BuscarDialogoComponent } from './_pages/buscar/buscar-dialogo/buscar-dialogo.component';
 import { ReporteComponent } from './_pages/reporte/reporte.component'; 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ServerErrorsInterceptor } from './shared/server-errors.interceptor';
 
 
 
@@ -56,7 +57,13 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     FlexLayoutModule,
     PdfViewerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorsInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
