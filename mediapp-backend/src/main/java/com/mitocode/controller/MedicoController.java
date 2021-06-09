@@ -13,6 +13,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class MedicoController {
 	@Autowired
 	private IMedicoService service;
 	
+	@PreAuthorize("@authServiceImpl.tieneAcceso('listar')") // El recurso list solo va a ser accedido por ADMIN
 	@GetMapping
 	public ResponseEntity<List<Medico>> list() throws Exception{
 		List<Medico> lista = service.listar();

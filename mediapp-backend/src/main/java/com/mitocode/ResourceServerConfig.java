@@ -29,7 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
     @Override
     public void configure(HttpSecurity http) throws Exception {
                 http
-                .exceptionHandling().authenticationEntryPoint(new AuthException())
+                .exceptionHandling().authenticationEntryPoint(new AuthException()) // excepcion personalizada
                 .and()
                 .requestMatchers()
                 .and()
