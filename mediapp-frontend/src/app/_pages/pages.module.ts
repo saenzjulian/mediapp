@@ -22,6 +22,8 @@ import { WizardComponent } from './wizard/wizard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { InicioComponent } from './inicio/inicio.component'; 
 import { PagesRoutingModule } from './pages-routing.module';
+import { Not403Component } from './not403/not403.component';
+import { Not404Component } from './not404/not404.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { PagesRoutingModule } from './pages-routing.module';
         BuscarDialogoComponent,
         ReporteComponent,
         LayoutComponent,
-        InicioComponent          
+        InicioComponent,
+        Not403Component,
+        Not404Component          
     ],
     providers: [],
 })

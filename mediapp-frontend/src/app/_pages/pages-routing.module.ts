@@ -13,33 +13,36 @@ import { PacienteComponent } from './paciente/paciente.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { InicioComponent } from './inicio/inicio.component'
+import { GuardService } from '../_services/guard.service';
+import { Not403Component } from './not403/not403.component'; 
 
 export const routes: Routes = [
-    { path: 'inicio', component: InicioComponent },
+    { path: 'inicio', component: InicioComponent, canActivate: [GuardService] },
     {
         path: 'paciente', component: PacienteComponent, children: [
             { path: 'nuevo', component: PacienteEdicionComponent },
             { path: 'edicion/:id', component: PacienteEdicionComponent }
-        ] 
+        ], canActivate: [GuardService]
     },
     {
         path: 'examen', component: ExamenComponent, children: [
-          { path: 'nuevo', component: ExamenEdicionComponent },
-          { path: 'edicion/:id', component: ExamenEdicionComponent } // Los :id quiere decir parte mutable
-        ]
-      },
+            { path: 'nuevo', component: ExamenEdicionComponent },
+            { path: 'edicion/:id', component: ExamenEdicionComponent }
+        ], canActivate: [GuardService]
+    },
     {
         path: 'especialidad', component: EspecialidadComponent, children: [
             { path: 'nuevo', component: EspecialidadEdicionComponent },
             { path: 'edicion/:id', component: EspecialidadEdicionComponent }
-        ] 
+        ], canActivate: [GuardService]
     },
-    { path: 'medico', component: MedicoComponent },
-    { path: 'consulta', component: ConsultaComponent },
-    { path: 'consulta-wizard', component: WizardComponent },
-    { path: 'consulta-especial', component: ConsultaEspecialComponent },
-    { path: 'buscar', component: BuscarComponent },
-    { path: 'reporte', component: ReporteComponent }
+    { path: 'medico', component: MedicoComponent, canActivate: [GuardService] },
+    { path: 'consulta', component: ConsultaComponent, canActivate: [GuardService] },
+    { path: 'consulta-wizard', component: WizardComponent, canActivate: [GuardService] },
+    { path: 'consulta-especial', component: ConsultaEspecialComponent, canActivate: [GuardService] },
+    { path: 'buscar', component: BuscarComponent, canActivate: [GuardService] },
+    { path: 'reporte', component: ReporteComponent, canActivate: [GuardService] },
+    { path: 'not-403', component: Not403Component }
 ]
 
 @NgModule({

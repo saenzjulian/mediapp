@@ -16,7 +16,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';  
+import { JwtModule } from '@auth0/angular-jwt'
+import { environment } from 'src/environments/environment';
 
+export function tokenGetter(){
+  return sessionStorage.getItem(environment.TOKEN_NAME);
+}
 
 
 @NgModule({
@@ -38,7 +43,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule, 
     HttpClientModule, 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [environment.HOST.substring(7)],
+        disallowedRoutes: [`http://${environment.HOST.substring(7)}/login/enviarCorreo`],
+      },
+    })
   ],
   providers: [
     {
