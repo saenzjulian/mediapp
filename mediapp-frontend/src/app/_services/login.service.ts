@@ -28,9 +28,34 @@ export class LoginService {
     return token != null; 
   }
 
-  cerrarSesion() { 
-    sessionStorage.clear();
-    this.router.navigate(['login']); 
+  cerrarSesion() {
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+
+    if (token) {
+      this.http.get(`${environment.HOST}/tokens/anular/${token}`).subscribe(() => {
+        sessionStorage.clear();
+        this.router.navigate(['login']);
+      });
+    } else {
+      sessionStorage.clear();
+      this.router.navigate(['login']);
+    }
+  }
+
+  enviarCorreo(correo: string) {
+    return this.http.post<number>(`${environment.HOST}/login/enviarCorreo`, correo, {
+      headers: new HttpHeaders().set('Content-Type', 'text/plain')
+    });
+  }
+
+  verificarTokenReset(token: string) {
+    return this.http.get<number>(`${environment.HOST}/login/restablecer/verificar/${token}`);
+  }
+
+  restablecer(token: string, clave: string) {
+    return this.http.post(`${environment.HOST}/login/restablecer/${token}`, clave, {
+      headers: new HttpHeaders().set('Content-Type', 'text/plain')
+    });
   }
 
 }

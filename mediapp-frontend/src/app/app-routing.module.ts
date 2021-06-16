@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';  
 import { LayoutComponent } from './_pages/layout/layout.component';
 import { LoginComponent } from './_pages/login/login.component'
+import { RecuperarComponent } from './_pages/login/recuperar/recuperar.component';
+import { TokenComponent } from './_pages/login/recuperar/token/token.component';
 import { Not404Component } from './_pages/not404/not404.component';
 
 const routes: Routes = [
@@ -13,6 +15,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'recuperar', component: RecuperarComponent, children:[
+      { path: ':token', component: TokenComponent }
+    ]
   },
   {
     path: 'pages',

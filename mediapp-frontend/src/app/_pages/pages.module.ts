@@ -24,6 +24,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { Not403Component } from './not403/not403.component';
 import { Not404Component } from './not404/not404.component';
+import { RecuperarComponent } from './login/recuperar/recuperar.component';
+import { TokenComponent } from './login/recuperar/token/token.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { Not404Component } from './not404/not404.component';
         LayoutComponent,
         InicioComponent,
         Not403Component,
-        Not404Component          
+        Not404Component,
+        RecuperarComponent,
+        TokenComponent          
     ],
     providers: [],
 })
